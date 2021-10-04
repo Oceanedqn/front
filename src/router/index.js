@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-import About from '../views/About.vue'
 import Models from '../views/Models.vue'
 import Process from '../views/Process.vue'
 import Ingredients from '../views/Ingredients.vue'
