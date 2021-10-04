@@ -168,7 +168,7 @@ export default {
       this.ingredients = this.getSteps();
     },
 
-    // Delete currently ingredient
+    // Delete currently ingredient by id
     async deleteStep(id_step) {
       await this.axios
         .delete(`/ingredients/${id_step}`)
