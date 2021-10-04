@@ -11,8 +11,8 @@
               <v-expansion-panel-content>
                 <v-text-field
                   v-model="newStepTitle"
-                  @click:append="addStep"
-                  @keyup.enter="addStep"
+                  @click:append="addIngredient"
+                  @keyup.enter="addIngredient"
                   class="pa-3"
                   outlined
                   label="Add ingredient"
@@ -34,7 +34,6 @@
               <v-list-item-group v-model="selectedItem" color="primary">
                 <div v-for="step in ingredients" :key="step.IGD_id">
                   <v-list-item
-                    @click="getStepById"
                     :id="step.IGD_id"
                     exact
                     :to="'/ingredients?id=' + step.IGD_id"
@@ -57,8 +56,8 @@
         <v-sheet min-height="88vh" rounded="lg" color="secondary">
           <h3 class="pa-3">Step</h3>
           <v-text-field
-            v-model="selectedStep.IGD_name"
-            v-if="selectedStep != null"
+            v-model="selectedIngredient.IGD_name"
+            v-if="selectedIngredient != null"
             class="pa-3 height"
             outlined
             dense
@@ -67,19 +66,19 @@
             color="primary"
           ></v-text-field>
           <v-row
-            v-if="selectedStep != null"
+            v-if="selectedIngredient != null"
             align="center"
             justify="space-around"
             class="pa-3"
           >
             <v-btn
               class="mx-auto cinqnary"
-              @click="modifyStep(selectedStep.IGD_id)"
+              @click="modifyIngredient(selectedIngredient.IGD_id)"
               ><v-icon left> mdi-pencil </v-icon>modifier</v-btn
             >
             <v-btn
               class="mx-auto quatenary"
-              @click="deleteStep(selectedStep.IGD_id)"
+              @click="deleteIngredient(selectedIngredient.IGD_id)"
               ><v-icon left> mdi-delete </v-icon>supprimmer</v-btn
             >
           </v-row>
@@ -100,12 +99,12 @@ export default {
     currentStep: "",
     selectedItem: 1,
     ingredients: null,
-    selectedStep: null,
+    selectedIngredient: null,
   }),
 
   mounted() {
     this.processRoute();
-    this.getSteps();
+    this.getIngredients();
   },
 
   watch: {
@@ -123,13 +122,13 @@ export default {
         const step = this.ingredients.find(
           (step) => step.IGD_id === selectedID
         );
-        this.selectedStep = { ...step } ?? null;
+        this.selectedIngredient = { ...step } ?? null;
       } else {
-        this.selectedStep = null;
+        this.selectedIngredient = null;
       }
     },
     // Get all ingredients
-    async getSteps() {
+    async getIngredients() {
       await this.$http
         .get("http://localhost:5000/api/ingredients")
         .then((response) => {
@@ -138,26 +137,26 @@ export default {
         });
     },
     // Adding new ingredient
-    async addStep() {
+    async addIngredient() {
       await this.axios
         .post("http://localhost:5000/api/ingredients", {
           name: this.newStepTitle,
         })
         .then(function (response) {
           console.log(response);
-          this.newStepTitle = "";
         })
         .catch(function (error) {
           console.log(error);
         });
-      this.ingredients = this.getSteps();
+      this.newStepTitle = "";
+      this.ingredients = this.getIngredients();
     },
     // Modify currently ingredient
-    async modifyStep(id_step) {
-      console.log(id_step);
+    async modifyIngredient(id_ingredient) {
+      console.log(id_ingredient);
       await this.axios
-        .put(`/ingredients/${id_step}`, {
-          name: this.selectedStep.IGD_name,
+        .put(`/ingredients/${id_ingredient}`, {
+          name: this.selectedIngredient.IGD_name,
         })
         .then(function (response) {
           console.log(response);
@@ -165,20 +164,20 @@ export default {
         .catch(function (error) {
           console.log(error);
         });
-      this.ingredients = this.getSteps();
+      this.ingredients = this.getIngredients();
     },
 
     // Delete currently ingredient by id
-    async deleteStep(id_step) {
+    async deleteIngredient(id_ingredient) {
       await this.axios
-        .delete(`/ingredients/${id_step}`)
+        .delete(`/ingredients/${id_ingredient}`)
         .then(function (response) {
           console.log(response);
         })
         .catch(function (error) {
           console.log(error);
         });
-      this.ingredients = this.getSteps();
+      this.ingredients = this.getIngredients();
       this.$router.push("ingredients");
     },
   },

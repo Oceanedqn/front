@@ -34,7 +34,6 @@
               <v-list-item-group v-model="selectedItem" color="primary">
                 <div v-for="step in steps" :key="step.STP_id">
                   <v-list-item
-                    @click="getStepById"
                     :id="step.STP_id"
                     exact
                     :to="'/steps?id=' + step.STP_id"
