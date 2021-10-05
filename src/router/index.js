@@ -5,6 +5,7 @@ import Models from '../views/Models.vue'
 import Process from '../views/Process.vue'
 import Ingredients from '../views/Ingredients.vue'
 import Steps from '../views/Steps.vue'
+import Connect from '../views/Connect.vue'
 
 Vue.use(VueRouter)
 // Set up different views with routes
@@ -34,6 +35,11 @@ const routes = [
         path: '/steps',
         name: 'Steps',
         component: Steps
+    },
+    {
+        path: '/connect',
+        name: 'Connect',
+        component: Connect
     }
 ]
 

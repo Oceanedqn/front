@@ -23,12 +23,6 @@
       </v-list>
     </v-navigation-drawer>
 
-    <!-- <v-app-bar app>
-      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-
-      <v-toolbar-title>KillerBee</v-toolbar-title>
-    </v-app-bar> -->
-
     <v-app-bar
       color="primary"
       app
@@ -37,20 +31,15 @@
     >
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 
-      <v-toolbar-title>Title</v-toolbar-title>
+      <v-toolbar-title>KillerBee</v-toolbar-title>
 
       <v-spacer></v-spacer>
 
-      <v-btn icon>
-        <v-icon>mdi-magnify</v-icon>
+      <v-btn class="pr-10" icon v-if="isConnected" :to="Home">
+        Logout<v-icon>mdi-logout</v-icon>
       </v-btn>
-
-      <v-btn icon>
-        <v-icon>mdi-heart</v-icon>
-      </v-btn>
-
-      <v-btn icon>
-        <v-icon>mdi-dots-vertical</v-icon>
+      <v-btn class="pr-10" icon v-if="!isConnected" to="/connect">
+        Login<v-icon>mdi-login</v-icon>
       </v-btn>
     </v-app-bar>
 
@@ -64,6 +53,7 @@
 export default {
   data: () => ({
     drawer: null,
+    isConnected: false,
     items: [
       { title: "Home", icon: "mdi-format-list-checks", to: "/" },
       { title: "About", icon: "mdi-help-box", to: "/about" },

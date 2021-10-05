@@ -10,17 +10,32 @@
               </v-expansion-panel-header>
               <v-expansion-panel-content>
                 <v-text-field
-                  v-model="newStepTitle"
-                  @click:append="addIngredient"
-                  @keyup.enter="addIngredient"
+                  v-model="newIngredient.name"
                   class="pa-3"
                   outlined
-                  label="Add ingredient"
-                  append-icon="mdi-plus"
+                  dense
+                  label="name"
                   hide-details
                   clearable
                   color="primary"
                 ></v-text-field>
+                <v-text-field
+                  v-model="newIngredient.description"
+                  class="pa-3"
+                  outlined
+                  dense
+                  label="description"
+                  hide-details
+                  clearable
+                  color="primary"
+                ></v-text-field>
+                <v-row align="center" justify="space-around" class="pa-3">
+                  <v-btn
+                    class="mx-auto primary"
+                    @click="addIngredient(newIngredient)"
+                    ><v-icon left> mdi-plus </v-icon>Ajouter</v-btn
+                  >
+                </v-row>
               </v-expansion-panel-content>
             </v-expansion-panel>
           </v-expansion-panels>
@@ -54,7 +69,7 @@
 
       <v-col cols="12" sm="6">
         <v-sheet min-height="88vh" rounded="lg" color="secondary">
-          <h3 class="pa-3">Step</h3>
+          <h3 class="pa-3">Ingredient</h3>
           <v-text-field
             v-model="selectedIngredient.IGD_name"
             v-if="selectedIngredient != null"
@@ -62,6 +77,16 @@
             outlined
             dense
             label="name"
+            hide-details
+            color="primary"
+          ></v-text-field>
+          <v-text-field
+            v-model="selectedIngredient.IGD_description"
+            v-if="selectedIngredient != null"
+            class="pa-3 height"
+            outlined
+            dense
+            label="description"
             hide-details
             color="primary"
           ></v-text-field>
@@ -95,6 +120,10 @@ export default {
   components: {},
 
   data: () => ({
+    newIngredient: {
+      name: "",
+      description: "",
+    },
     newStepTitle: "",
     currentStep: "",
     selectedItem: 1,
@@ -137,10 +166,11 @@ export default {
         });
     },
     // Adding new ingredient
-    async addIngredient() {
+    async addIngredient(newIngredient) {
       await this.axios
         .post("http://localhost:5000/api/ingredients", {
-          name: this.newStepTitle,
+          name: newIngredient.name,
+          description: newIngredient.description,
         })
         .then(function (response) {
           console.log(response);
@@ -148,7 +178,8 @@ export default {
         .catch(function (error) {
           console.log(error);
         });
-      this.newStepTitle = "";
+      this.newIngredient.name = "";
+      this.newIngredient.description = "";
       this.ingredients = this.getIngredients();
     },
     // Modify currently ingredient
@@ -157,6 +188,7 @@ export default {
       await this.axios
         .put(`/ingredients/${id_ingredient}`, {
           name: this.selectedIngredient.IGD_name,
+          description: this.selectedIngredient.IGD_description,
         })
         .then(function (response) {
           console.log(response);
