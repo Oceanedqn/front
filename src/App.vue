@@ -57,8 +57,8 @@ export default {
     items: [
       { title: "Home", icon: "mdi-format-list-checks", to: "/" },
       { title: "About", icon: "mdi-help-box", to: "/about" },
-      { title: "Models", icon: "mdi-sitemap", to: "/models" },
-      { title: "Process", icon: "mdi-pencil", to: "/process" },
+      // { title: "Models", icon: "mdi-sitemap", to: "/models" },
+      // { title: "Process", icon: "mdi-pencil", to: "/process" },
       { title: "Ingredients", icon: "mdi-book-open", to: "/ingredients" },
       { title: "Steps", icon: "mdi-clipboard-list", to: "/steps" },
     ],

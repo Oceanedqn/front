@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-import Models from '../views/Models.vue'
-import Process from '../views/Process.vue'
+// import Models from '../views/Models.vue'
+// import Process from '../views/Process.vue'
 import Ingredients from '../views/Ingredients.vue'
 import Steps from '../views/Steps.vue'
 import Connect from '../views/Connect.vue'
@@ -16,16 +16,16 @@ const routes = [
         component: Home
 
     },
-    {
-        path: '/models',
-        name: 'Models',
-        component: Models
-    },
-    {
-        path: '/process',
-        name: 'Process',
-        component: Process
-    },
+    // {
+    //     path: '/models',
+    //     name: 'Models',
+    //     component: Models
+    // },
+    // {
+    //     path: '/process',
+    //     name: 'Process',
+    //     component: Process
+    // },
     {
         path: '/ingredients',
         name: 'Ingredients',
